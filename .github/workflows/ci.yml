@@ -22,7 +22,8 @@ jobs:
                 npm install eslint eslint-plugin-cypress globals --save-dev --legacy-peer-deps
 
             - name: Run ESLint on project
-              run: npx eslint "cypress/**/*.js" "src/**/*.js"
+              run: npx eslint "cypress/**/*.{ts,tsx}" "src/**/*.{ts,tsx}"
+
 
     # tests_cypress:
     #     runs-on: ubuntu-latest
