@@ -111,7 +111,7 @@ jobs:
             uses: actions/upload-artifact@v4
             with:
               name: zap-report
-              path: report.html
+              path: report_html.html
 
 
     # check_perf:
