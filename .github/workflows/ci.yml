@@ -18,12 +18,16 @@ jobs:
                 cache: 'npm'
             
             - name: Install ESLint, Cypress plugin and globals
-              run: |
-                npm install eslint eslint-plugin-cypress globals --save-dev --legacy-peer-deps
+              run: npm install eslint eslint-plugin-cypress globals --save-dev --legacy-peer-deps
 
             - name: Run ESLint on project
-              run: npx eslint "cypress/**/*.{ts,tsx}" "src/**/*.{ts,tsx}"
-
+              run: npx eslint "cypress/**/*.{ts,tsx}" "src/**/*.{ts,tsx}" -f html -o eslint-report.html
+            
+            - name: Upload ESLint reports
+              uses: actions/upload-artifact@v3
+              with:
+                name: eslint-reports
+                path: eslint-report.html
 
     # tests_cypress:
     #     runs-on: ubuntu-latest
