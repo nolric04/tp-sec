@@ -2,6 +2,8 @@
 import "@cypress/code-coverage/support";
 import "./commands";
 import { isMobile } from "./utils";
+import '@shelex/cypress-allure-plugin';
+
 
 
 beforeEach(() => {

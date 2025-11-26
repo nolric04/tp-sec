@@ -51,7 +51,7 @@ jobs:
               run: npm run dev &
             - name: Wait for frontend to be ready
               run: npx wait-on http://localhost:3000
-              
+
             - name: Run Cypress Tests
               run: npx cypress run --env allure=true
             - name: Upload Allure Results
@@ -60,6 +60,9 @@ jobs:
                 name: allure-results
                 path: allure-results
 
+            - name: Debug workspace
+              run: ls -R .
+              
 
     # check_dependencies:
     #     runs-on: ubuntu-latest
