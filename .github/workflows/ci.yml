@@ -61,30 +61,42 @@ jobs:
     #             path: allure-results
               
 
-    check_dependencies:
+    # check_dependencies:
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #       - name: Checkout repository
+    #         uses: actions/checkout@v3
+    #       - name: Install Snyk
+    #         run: npm install -g snyk
+
+    #       - name: Authenticate Snyk
+    #         run: snyk auth ${{ secrets.SNYK_TOKEN }}
+
+    #       - name: Run Snyk Test
+    #         run: snyk test --severity-threshold=high --json > snyk-report.json
+    #         continue-on-error: true
+
+    #       - name: Upload Report
+    #         uses: actions/upload-artifact@v4
+    #         with:
+    #           name: snyk-report
+    #           path: snyk-report.json
+
+
+    check_security:
         runs-on: ubuntu-latest
         steps:
-          - name: Checkout repository
-            uses: actions/checkout@v3
-          - name: Install Snyk
-            run: npm install -g snyk
-
-          - name: Authenticate Snyk
-            run: snyk auth ${{ secrets.SNYK_TOKEN }}
-            
-          - name: Run Snyk Test
-            run: snyk test --severity-threshold=high --json > snyk-report.json
-            continue-on-error: true
+          - name: Active scan
+            uses: zaproxy/action-baseline@v0.6.0
+            with:
+              target: "http://localhost:3000"
 
           - name: Upload Report
             uses: actions/upload-artifact@v4
             with:
-              name: snyk-report
-              path: snyk-report.json
+              name: zap-report
+              path: report.html
 
-
-    # check_security:
-    #     runs-on: ubuntu-latest
 
     # check_perf:
     #     runs-on: ubuntu-latest
