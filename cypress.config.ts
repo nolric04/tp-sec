@@ -69,6 +69,7 @@ export default defineConfig({
     supportFile: "cypress/support/component.ts",
     setupNodeEvents(on, config) {
       codeCoverageTask(on, config);
+      allureWriter(on, config);
       return config;
     },
   },
@@ -109,6 +110,7 @@ export default defineConfig({
       });
 
       codeCoverageTask(on, config);
+      allureWriter(on, config);
       return config;
     },
   },
