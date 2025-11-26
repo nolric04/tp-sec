@@ -20,7 +20,7 @@ jobs:
               run: npm install yarn@latest -g
             
             - name: install Eslint
-              run: npm install eslint eslint-plugin-cypress --save-dev
+              run: npm install eslint eslint-plugin-cypress --save-dev --legacy-peer-deps
 
     # tests_cypress:
     #     runs-on: ubuntu-latest
