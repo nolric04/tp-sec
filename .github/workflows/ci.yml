@@ -1,0 +1,5 @@
+name: CI - projet Cypress
+on:
+    push:
+      branches: [Tavernier]
+jobs:
