@@ -21,7 +21,9 @@ jobs:
             
             - name: install Eslint
             #   run: npm install eslint eslint-plugin-cypress --save-dev --legacy-peer-deps
-              run: npx eslint
+              run: |
+                npm install globals --save-dev --legacy-peer-deps
+                npx eslint
 
     # tests_cypress:
     #     runs-on: ubuntu-latest
