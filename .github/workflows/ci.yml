@@ -43,7 +43,7 @@ jobs:
             - name: install dependencies
               run: npm install --legacy-peer-deps
             - name: install allure
-              run: npm install --save-dev @shelex/cypress-allure-plugin
+              run: npm install --save-dev @shelex/cypress-allure-plugin --legacy-peer-deps
 
 
             - name: Run Cypress Tests
