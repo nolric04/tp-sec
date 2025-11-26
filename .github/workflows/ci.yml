@@ -16,14 +16,13 @@ jobs:
               with:
                 node-version: 20
                 cache: 'npm'
-            # - name: Install yarn
-            #   run: npm install yarn@latest -g
             
-            - name: install Eslint
-            #   run: npm install eslint eslint-plugin-cypress --save-dev --legacy-peer-deps
+            - name: Install ESLint, Cypress plugin and globals
               run: |
-                npm install globals --save-dev --legacy-peer-deps
-                npx eslint
+                npm install eslint eslint-plugin-cypress globals --save-dev --legacy-peer-deps
+
+            - name: Run ESLint on project
+              run: npx eslint "cypress/**/*.js" "src/**/*.js"
 
     # tests_cypress:
     #     runs-on: ubuntu-latest
