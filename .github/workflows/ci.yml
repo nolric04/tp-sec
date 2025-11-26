@@ -3,3 +3,33 @@ on:
     push:
       branches: [Tavernier]
 jobs:
+    linter:
+        name: Verification EsLint
+        runs-on: ubuntu-latest
+        continue-on-error: true
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+
+            - name: Install dependencies
+              run: npm install
+            
+            - name: install Eslint
+              run: npm install eslint eslint-plugin-cypress --save-dev
+
+    tests_cypress:
+        runs-on: ubuntu-latest
+
+
+    check_dependencies:
+        runs-on: ubuntu-latest
+
+    check_security:
+        runs-on: ubuntu-latest
+
+    check_perf:
+        runs-on: ubuntu-latest
+
+    check_vulnerability:
+        runs-on: ubuntu-latest
