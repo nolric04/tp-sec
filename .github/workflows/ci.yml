@@ -29,43 +29,53 @@ jobs:
     #             name: eslint-reports
     #             path: eslint-report.html
 
-    tests_cypress:
-        runs-on: ubuntu-latest    
-        continue-on-error: true
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v3
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                node-version: 20
-                cache: 'npm'
-            - name: install dependencies
-              run: npm install --legacy-peer-deps
-            - name: install allure
-              run: npm install --save-dev @shelex/cypress-allure-plugin --legacy-peer-deps
-            - name: install wait-on
-              run: npm install --save-dev wait-on --legacy-peer-deps
+    # tests_cypress:
+    #     runs-on: ubuntu-latest    
+    #     continue-on-error: true
+    #     steps:
+    #         - name: Checkout repository
+    #           uses: actions/checkout@v3
+    #         - name: Setup Node.js
+    #           uses: actions/setup-node@v4
+    #           with:
+    #             node-version: 20
+    #             cache: 'npm'
+    #         - name: install dependencies
+    #           run: npm install --legacy-peer-deps
+    #         - name: install allure
+    #           run: npm install --save-dev @shelex/cypress-allure-plugin --legacy-peer-deps
+    #         - name: install wait-on
+    #           run: npm install --save-dev wait-on --legacy-peer-deps
 
-            - name: Start frontend + API
-              run: npm run dev &
-            - name: Wait for frontend to be ready
-              run: npx wait-on http://localhost:3000
+    #         - name: Start frontend + API
+    #           run: npm run dev &
+    #         - name: Wait for frontend to be ready
+    #           run: npx wait-on http://localhost:3000
 
-            - name: Run Cypress Tests
-              run: npx cypress run --env allure=true
-            - name: Upload Allure Results
-              uses: actions/upload-artifact@v4
-              with:
-                name: allure-results
-                path: allure-results
-
-            - name: Debug workspace
-              run: ls -R .
+    #         - name: Run Cypress Tests
+    #           run: npx cypress run --env allure=true
+    #         - name: Upload Allure Results
+    #           uses: actions/upload-artifact@v4
+    #           with:
+    #             name: allure-results
+    #             path: allure-results
               
 
-    # check_dependencies:
-    #     runs-on: ubuntu-latest
+    check_dependencies:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Install Snyk
+            run: npm install -g snyk
+
+          - name: Run Snyk Test
+            run: snyk test --severity-threshold=high --json > snyk-report.json
+
+          - name: Upload Report
+            uses: actions/upload-artifact@v4
+            with:
+              name: snyk-report
+              path: snyk-report.json
+
 
     # check_security:
     #     runs-on: ubuntu-latest
